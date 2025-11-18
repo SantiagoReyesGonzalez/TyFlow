@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TyFlow - Gestor de Tickets</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>TyFlow - Gestor de Tickets</h1>
+    </header>
+    <main>
+        <section id="ticket-section">
+            <h2>Asignar Ticket</h2>
+            <form id="ticket-form">
+                <label for="ticket-number">Número de Ticket:</label>
+                <input type="text" id="ticket-number" name="ticket-number" required>
+                <button type="submit">Asignar</button>
+            </form>
+        </section>
+        <section id="log-section">
+            <h2>Registros</h2>
+            <ul id="log-list">
+                <!-- Registros aparecerán aquí -->
+            </ul>
+        </section>
+    </main>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
