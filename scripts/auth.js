@@ -8,7 +8,7 @@ if (!form) {
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    if (!window.supabase) {
+    if (!window.supabaseClient) {
         msg.textContent = 'Error: Supabase no inicializado.';
         console.error('Supabase client no encontrado en window.supabase');
         return;
@@ -22,8 +22,10 @@ form.addEventListener('submit', async (e) => {
     if (submitBtn) submitBtn.disabled = true;
 
     try {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+        email,
+        password
+        });
         if (error) {
             msg.textContent = error.message || 'Error al iniciar sesión.';
             console.error('Supabase auth error:', error);
