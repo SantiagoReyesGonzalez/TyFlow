@@ -1,0 +1,23 @@
+/* base.css */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Botones base */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+/* Inputs base */
+input {
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  padding: var(--space-sm);
+}

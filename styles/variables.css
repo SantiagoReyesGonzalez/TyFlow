@@ -1,0 +1,98 @@
+:root {
+  /* =========================
+     COLORES BASE
+  ========================= */
+  --primary-500: #2AC78F;   /* verde vibrante */
+  --primary-600: #249F75;   /* hover */
+  --primary-700: #1E7B5E;   /* active */
+
+  --secondary-500: #3083DC; /* azul brillante */
+  --secondary-600: #276BB4;
+
+  --accent-500: #F2B705;    /* amarillo mostaza */
+  --accent-600: #D19C04;
+
+  /* =========================
+     NEUTROS
+  ========================= */
+  --bg-main: #F8FFE5;
+  --bg-card: #FFFFFF;
+
+  --text-primary: #1F2937;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+
+  --border-light: #E5E7EB;
+  --border-dark: #D1D5DB;
+
+  /* =========================
+     ESTADOS
+  ========================= */
+  --success-500: #7DDE92;
+  --error-500: #EF4444;
+  --warning-500: #F59E0B;
+  --info-500: #3B82F6;
+
+  /* =========================
+     BOTONES
+  ========================= */
+  --btn-primary-bg: var(--primary-500);
+  --btn-primary-hover: var(--primary-600);
+  --btn-primary-active: var(--primary-700);
+  --btn-primary-text: #FFFFFF;
+
+  --btn-secondary-bg: var(--secondary-500);
+  --btn-secondary-hover: var(--secondary-600);
+  --btn-secondary-text: #FFFFFF;
+
+  /* =========================
+     INPUTS / FORMS
+  ========================= */
+  --input-bg: #FFFFFF;
+  --input-border: var(--border-light);
+  --input-focus: var(--primary-500);
+  --input-text: var(--text-primary);
+  --input-placeholder: var(--text-muted);
+
+  /* =========================
+     SOMBRAS
+  ========================= */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 10px rgba(0,0,0,.1);
+  --shadow-lg: 0 10px 25px rgba(0,0,0,.15);
+
+  /* =========================
+     TRANSICIONES
+  ========================= */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.25s ease;
+
+
+    /* =========================
+     GRADIENTES
+  ========================= */
+  --primary-gradient: linear-gradient(
+      -110deg,
+      #2AC78F 0%,   /* verde original */
+      #72ccab 100%  /* verde mucho más claro para que se note el gradiente */
+   );
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-main: #0F172A;
+    --bg-card: #1E293B;
+
+    --text-primary: #E5E7EB;
+    --text-secondary: #9CA3AF;
+
+    --input-bg: #1E293B;
+    --input-border: #334155;
+
+    --btn-primary-bg: var(--primary-500);
+    --btn-primary-hover: var(--primary-600);
+    --btn-primary-active: var(--primary-700);
+  }
+}

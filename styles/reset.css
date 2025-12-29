@@ -1,0 +1,45 @@
+/* reset.css */
+
+/* Box sizing universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elimina estilos por defecto */
+html, body {
+  height: 100%;
+}
+
+/* Imágenes y medios */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Formularios heredan fuente */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Quita subrayado y color azul */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Listas limpias */
+ul,
+ol {
+  list-style: none;
+}
