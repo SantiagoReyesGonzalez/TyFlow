@@ -106,9 +106,11 @@ button:active{
 @media (max-width: 768px) {
     .container-login {
         grid-template-columns: 1fr; /* una sola columna */
-        width: 90%;                /* ancho relativo al viewport */
+        width: 100%;                /* ancho relativo al viewport */
         min-height: auto;
-        padding: 20px 0;
+        border-radius: 0;
+        height: 100vh;              /* altura completa del viewport */
+
     }
 
     .container-login-left,
