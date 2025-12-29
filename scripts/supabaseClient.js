@@ -1,7 +1,9 @@
 // Configuración de Supabase
-const SUPABASE_URL = 'https://your-supabase-url.supabase.co';
-const SUPABASE_KEY = 'your-anon-key';
+const SUPABASE_URL = 'https://iryiobhmmvdnvwfovuye.supabase.co';
+const SUPABASE_KEY = 'sb_publishable__ebSt_oeNFqErCtk1ZUfSg_P0V6vNt7';
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const supabase = window.supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+)
 
-export default supabase;
