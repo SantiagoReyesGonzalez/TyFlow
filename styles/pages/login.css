@@ -115,7 +115,7 @@ button:active{
 
     .container-login-left,
     .container-login-right {
-        padding: 2rem 1rem;        /* reducir padding en móviles */
+        padding: 4rem 3rem;        /* reducir padding en móviles */
     }
 
     .container-login-left {
@@ -132,8 +132,7 @@ button:active{
     }
 
     .container-login-right h3 {
-        font-size: 2rem;
-        margin-top: 40px;
+        font-size: 1.5rem;
         margin-bottom: 0;
     }
 
