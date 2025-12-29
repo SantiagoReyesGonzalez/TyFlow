@@ -3,24 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/variables.css">
+    <link rel="stylesheet" href="styles/body.css">
+    <link rel="stylesheet" href="styles/pages/login.css">
     <title>TyFlow</title>
 </head>
 <body>
     <div class="container-login">
-        <h1>Bienvenido a TyFlow</h1>
+        <div class="container-login-left">
+            <h1>Bienvenido a TYFLOW</h1>
 
-        <form id="loginForm">
-            <label for="email">Correo:</label>
-            <input type="email" id="email" required>
+            <form id="loginForm">
+                <label for="email">Usuario</label>
+                <input type="email" id="email" placeholder="usuario@tyblaflow.com" required>
 
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" required>
-
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-
-        <p id="msg"></p>
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" placeholder="********" required>
+                 <p id="msg"></p>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+           
+        </div>
+        <div class="container-login-right">
+            <h3>TYFLOW</h3>
+            <p>La herramienta que ha sido construida para resolver tu vida y tu reparto</p>
+        </div>
     </div>
 
     <!-- Conexion con Supabase-->
