@@ -84,7 +84,7 @@ button:active{
     background-image: var(--primary-gradient);
     padding: 60px;
     color: var(--btn-primary-text);
-    
+
 }
 
 .container-login-right h3{
@@ -98,4 +98,54 @@ button:active{
     text-align: center;
     font-size: 1.2rem;
     line-height: 1.5rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .container-login {
+        grid-template-columns: 1fr; /* una sola columna */
+        width: 90%;                /* ancho relativo al viewport */
+        min-height: auto;
+        padding: 20px 0;
+    }
+
+    .container-login-left,
+    .container-login-right {
+        padding: 2rem 1rem;        /* reducir padding en móviles */
+    }
+
+    .container-login-left {
+        order: 2; /* será después */
+    }
+    .container-login-right {
+        order: 1; /* aparecerá primero */
+        height: auto;
+
+    }
+
+    h1 {
+        display: none;
+    }
+
+    .container-login-right h3 {
+        font-size: 2rem;
+        margin-top: 40px;
+    }
+
+    
+
+    .container-login-right p {
+        font-size: 1rem;
+        line-height: 1.4rem;
+    }
+
+    input,
+    button {
+        width: 100%;               /* asegurar que ocupen todo el ancho */
+    }
+
+    button {
+        padding: 20px 10px;
+        margin-top: 20px;
+    }
 }
