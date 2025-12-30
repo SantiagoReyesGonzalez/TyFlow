@@ -13,5 +13,26 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="/TyFlow/scripts/supabase.js"></script>
     <script src="/TyFlow/scripts/protect.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+const supabase = supabase.createClient(
+  'TU_URL',
+  'TU_ANON_KEY'
+)
+
+await supabase.auth.signInWithPassword({
+  email: 'admin@correo.com',
+  password: 'xxxxx'
+})
+
+const { data, error } = await supabase
+  .from('usuarios')
+  .select('*')
+
+console.log(data, error)
+</script>
+
 </body>
 </html>
