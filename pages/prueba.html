@@ -33,6 +33,11 @@
 
   console.log('usuarios:', data, error)
 
+    const { data: rolesData, error: rolesError } = await client
+      .from('roles')
+      .select('*')
+    console.log('roles:', rolesData, rolesError)
+
 })();
 </script>
 
