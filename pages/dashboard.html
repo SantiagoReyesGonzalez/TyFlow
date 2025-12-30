@@ -33,20 +33,7 @@ const { data, error } = await supabase
 
 console.log(data, error)
 
-    alert('Vamos a crear el usuario');
-    // creando usuario
 
-    const { data: authData, error: authError } = await client.auth.admin.createUser({
-        email: 'santiago.reyes@cun.edu.co',
-        password: 'Bogota*2025',
-        email_confirm: true // Marca el correo como confirmado
-    });
-
-    if (authError) {
-        console.error('Error creando usuario en Auth:', authError);
-    } else {
-        console.log('Usuario creado en Auth:', authData);
-    }
 </script>
 
 </body>
