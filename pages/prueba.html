@@ -38,6 +38,24 @@
       .select('*')
     console.log('roles:', rolesData, rolesError)
 
+
+    // AREAS
+    const { data: areasData, error: areasError } = await client
+    .from('areas')
+    .select('*')
+    console.log('areas:', areasData, areasError)
+
+    // USUARIO_AREA
+    const { data: usuarioAreaData, error: usuarioAreaError } = await client
+    .from('usuarioArea')
+    .select('*')
+    console.log('usuarioArea:', usuarioAreaData, usuarioAreaError)
+
+    // USUARIO_ROL
+    const { data: usuarioRolData, error: usuarioRolError } = await client
+    .from('usuarioRol')
+    .select('*')
+    console.log('usuarioRol:', usuarioRolData, usuarioRolError)
 })();
 </script>
 
