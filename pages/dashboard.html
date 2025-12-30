@@ -22,10 +22,6 @@ const supabase = supabase.createClient(
   'TU_ANON_KEY'
 )
 
-await supabase.auth.signInWithPassword({
-  email: 'admin@correo.com',
-  password: 'xxxxx'
-})
 
 const { data, error } = await supabase
   .from('usuarios')
