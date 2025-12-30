@@ -1,23 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Prueba Supabase</title>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body>
-<h1>Prueba V 0.2</h1>
 <script>
 (async () => {
   const supabase = window.supabase.createClient(
-    'TU_SUPABASE_URL',
-    'TU_ANON_KEY'
+    'https://iryiobhmmvdnvwfovuye.supabase.co',
+    'sb_publishable__ebSt_oeNFqErCtk1ZUfSg_P0V6vNt7'
   )
 
   const { data: loginData, error: loginError } =
     await supabase.auth.signInWithPassword({
-      email: 'blenderparatodos@gmail.com',
-      password: 'Bogota*2025'
+      email: 'admin@correo.com',
+      password: 'TU_PASSWORD'
     })
 
   console.log('login:', loginData, loginError)
@@ -29,6 +20,3 @@
   console.log('usuarios:', data, error)
 })();
 </script>
-
-</body>
-</html>
