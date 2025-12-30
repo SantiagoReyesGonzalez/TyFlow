@@ -1,22 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Prueba Supabase</title>
+
+  <!-- Supabase JS v2 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <h1>esta si es V3</h1>
 <script>
 (async () => {
-  const supabase = window.supabase.createClient(
+
+  // 👇 createClient viene global
+  const client = supabase.createClient(
     'https://iryiobhmmvdnvwfovuye.supabase.co',
     'sb_publishable__ebSt_oeNFqErCtk1ZUfSg_P0V6vNt7'
   )
 
   const { data: loginData, error: loginError } =
-    await supabase.auth.signInWithPassword({
+    await client.auth.signInWithPassword({
       email: 'blenderparatodos@gmail.com',
       password: 'Bogota*2025'
     })
 
   console.log('login:', loginData, loginError)
 
-  const { data, error } = await supabase
+  const { data, error } = await client
     .from('usuarios')
     .select('*')
 
   console.log('usuarios:', data, error)
+
 })();
 </script>
+
+</body>
+</html>
