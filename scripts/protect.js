@@ -32,24 +32,24 @@
       return;
     }
 
-    // 2) Comprobar roles a través de una tabla intermedia `usuarioRol` y `roles`
+    // 2) Comprobar roles a través de `usuarioRol` (usuarioID, rolID) y `roles` (nombreRol)
     const { data: usuarioRoles, error: usuarioRolesError } = await window.supabaseClient
       .from('usuarioRol')
       .select('*')
-      .eq('usuario_id', user.id);
+      .eq('usuarioID', user.id);
 
     if (usuarioRolesError) console.debug('Comprueba tabla usuarioRol:', usuarioRolesError);
 
     if (usuarioRoles && usuarioRoles.length > 0) {
-      // intentar obtener los roles asociados
-      const roleIds = usuarioRoles.map(r => r.rol_id || r.role_id).filter(Boolean);
+      // obtener los rolID (son bigint en tu esquema)
+      const roleIds = usuarioRoles.map(r => r.rolID).filter(Boolean);
       if (roleIds.length > 0) {
         const { data: roles } = await window.supabaseClient
           .from('roles')
-          .select('id,name')
+          .select('id,nombreRol')
           .in('id', roleIds);
 
-        if (roles && roles.some(r => (r.name || '').toLowerCase() === 'admin')) {
+        if (roles && roles.some(r => (r.nombreRol || '').toLowerCase() === 'admin')) {
           return; // es admin
         }
       }
@@ -61,7 +61,7 @@
     return;
   } catch (err) {
     console.error('Error comprobando rol de administrador:', err);
-    window.location.href = '/TyFlow/index.html';
+    window.location.href = '../index.html';
     return;
   }
 })();
