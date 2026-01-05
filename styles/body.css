@@ -21,3 +21,8 @@ input {
   background-color: var(--input-bg);
   padding: var(--space-sm);
 }
+
+/* Ocultar elementos solo para admin cuando el body indica usuario normal */
+body[data-role="user"] .admin-only {
+  display: none !important;
+}
