@@ -33,17 +33,21 @@
                 }
 
                 try {
+                    const { data: sessionData, error: sessionError } = await window.supabaseClient.auth.getSession();
+                    if (sessionError) console.debug('sessionError', sessionError);
+                    const userInfo = sessionData?.session?.user ?? null;
+
                     const { data, error } = await window.supabaseClient
                         .from('usuarios')
-                        .select('id,email')
+                        .select('id,creadoEn,segundoNombre,segundoApellido,numeroDocumento,primerApellido,primerNombre')
                         .limit(10);
 
                     if (error) {
-                        out.textContent = 'Error al consultar: ' + (error.message || JSON.stringify(error));
+                        out.textContent = 'Error al consultar usuarios: ' + (error.message || JSON.stringify(error));
                         return;
                     }
 
-                    out.textContent = 'Consulta exitosa. Registros:\n' + JSON.stringify(data, null, 2);
+                    out.textContent = 'Session user:\n' + JSON.stringify(userInfo, null, 2) + '\n\nUsuarios:\n' + JSON.stringify(data, null, 2);
                 } catch (err) {
                     out.textContent = 'Excepción: ' + (err.message || String(err));
                 }
