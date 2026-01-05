@@ -39,7 +39,7 @@
           .select('id,nombreRol')
           .in('id', roleIds);
 
-        if (roles && roles.some(r => (r.nombreRol || '').toLowerCase() === 'admin')) {
+        if (roles && roles.some(r => (r.nombreRol || '').toLowerCase().includes('administr')) ) {
           return; // es admin
         }
       }
