@@ -10,27 +10,47 @@
 
     <button id="logout">Cerrar sesión</button>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="/TyFlow/scripts/supabase.js"></script>
-    <script src="/TyFlow/scripts/protect.js"></script>
+        <section>
+            <h2>Probar conexión Supabase</h2>
+            <button id="testConnBtn">Probar conexión</button>
+            <pre id="testResult" style="white-space:pre-wrap; background:#f6f6f6; padding:8px; border-radius:4px;">Pulsa "Probar conexión" para ejecutar una consulta.</pre>
+        </section>
 
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="../scripts/supabase.js"></script>
+        <script src="../scripts/protect.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-const supabase = supabase.createClient(
-  'TU_URL',
-  'TU_ANON_KEY'
-)
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('testConnBtn');
+            const out = document.getElementById('testResult');
 
+            if (btn) btn.addEventListener('click', async () => {
+                out.textContent = 'Probando conexión...';
+                if (!window.supabaseClient) {
+                    out.textContent = 'Supabase no inicializado en window.supabaseClient.';
+                    return;
+                }
 
-const { data, error } = await supabase
-  .from('usuarios')
-  .select('*')
+                try {
+                    const { data, error } = await window.supabaseClient
+                        .from('usuarios')
+                        .select('id,email')
+                        .limit(10);
 
-console.log(data, error)
+                    if (error) {
+                        out.textContent = 'Error al consultar: ' + (error.message || JSON.stringify(error));
+                        return;
+                    }
 
+                    out.textContent = 'Consulta exitosa. Registros:\n' + JSON.stringify(data, null, 2);
+                } catch (err) {
+                    out.textContent = 'Excepción: ' + (err.message || String(err));
+                }
+            });
+        });
+        </script>
 
-</script>
 
 </body>
 </html>
