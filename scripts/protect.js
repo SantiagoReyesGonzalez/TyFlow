@@ -19,18 +19,8 @@
   // Verificar si el usuario es administrador.
   // Intentaremos varias comprobaciones comunes según esquemas posibles.
   try {
-    // 1) Buscar campo booleano `is_admin` en la tabla `usuarios` (si existe)
-    const { data: userRow, error: userRowError } = await window.supabaseClient
-      .from('usuarios')
-      .select('id,is_admin')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (userRowError) console.debug('Comprueba tabla usuarios:', userRowError);
-    if (userRow && userRow.is_admin) {
-      // es admin -> permitir acceso
-      return;
-    }
+    // Nota: no se asume columna `is_admin` en la tabla `usuarios`.
+    // Se comprueba el rol a través de `usuarioRol` y `roles`.
 
     // 2) Comprobar roles a través de `usuarioRol` (usuarioID, rolID) y `roles` (nombreRol)
     const { data: usuarioRoles, error: usuarioRolesError } = await window.supabaseClient
