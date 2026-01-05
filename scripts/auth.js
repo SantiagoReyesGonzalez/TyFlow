@@ -26,6 +26,8 @@ form.addEventListener('submit', async (e) => {
         email,
         password
         });
+        console.log('signInWithPassword result:', { data, error });
+
         if (error) {
             msg.textContent = error.message || 'Error al iniciar sesión.';
             console.error('Supabase auth error:', error);

@@ -66,6 +66,19 @@
   }
 })();
 
+// Si la sesión cambia (p. ej. refresh token falla), redirigir. Añadimos listener para depuración.
+window.supabaseClient?.auth.onAuthStateChange((event, session) => {
+  console.log('protect.js onAuthStateChange:', event, session);
+  // si la sesión se pierde explícitamente, redirigir al login
+  if (event === 'SIGNED_OUT' || event === 'USER_DELETED' || (event === 'TOKEN_REFRESH_FAILED')) {
+    try {
+      window.location.href = '../index.html';
+    } catch (e) {
+      console.error('Error redirigiendo tras cambio de auth:', e);
+    }
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const logoutBtn = document.getElementById('logout');
 
