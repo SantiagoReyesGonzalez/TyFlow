@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.getElementById('testConnBtn');
-    const out = document.getElementById('testResult');
+    // Elementos de prueba removidos: `testConnBtn` y `testResult` ya no son necesarios
 
     async function showUserHeader() {
         if (!window.supabaseClient) return;
@@ -84,31 +83,5 @@ document.addEventListener('DOMContentLoaded', () => {
         window.supabaseClient.auth.onAuthStateChange(() => setTimeout(setAdminVisibility, 50));
     }
 
-    if (btn) btn.addEventListener('click', async () => {
-        out.textContent = 'Probando conexión...';
-        if (!window.supabaseClient) {
-            out.textContent = 'Supabase no inicializado en window.supabaseClient.';
-            return;
-        }
-
-        try {
-            const { data: sessionData, error: sessionError } = await window.supabaseClient.auth.getSession();
-            if (sessionError) console.debug('sessionError', sessionError);
-            const userInfo = sessionData?.session?.user ?? null;
-
-            const { data, error } = await window.supabaseClient
-                .from('usuarios')
-                .select('id,creadoEn,segundoNombre,segundoApellido,numeroDocumento,primerApellido,primerNombre')
-                .limit(10);
-
-            if (error) {
-                out.textContent = 'Error al consultar usuarios: ' + (error.message || JSON.stringify(error));
-                return;
-            }
-
-            out.textContent = 'Session user:\n' + JSON.stringify(userInfo, null, 2) + '\n\nUsuarios:\n' + JSON.stringify(data, null, 2);
-        } catch (err) {
-            out.textContent = 'Excepción: ' + (err.message || String(err));
-        }
-    });
+    // Código de prueba (`testConnBtn`) eliminado intencionalmente.
 });

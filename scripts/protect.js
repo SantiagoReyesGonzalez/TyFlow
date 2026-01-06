@@ -30,8 +30,17 @@
 
     if (usuarioRolesError) console.debug('Comprueba tabla usuarioRol:', usuarioRolesError);
 
+    // aqui verifica que el usuario tenga al menos un rol asignado, ya que pueden haber mas de
+    // un rol asignado al mismo usuario
     if (usuarioRoles && usuarioRoles.length > 0) {
       const roleIds = usuarioRoles.map(r => r.rolID).filter(Boolean);
+
+      // apesar de que antes hicimos la comprobacion existe la posibilidad de que los 
+      // roles anteriormente verificados estuvieran en datos nulos o similares
+      // devolviendo un array vacio, es por esto que se vuelve a realizar la verificacion
+      // la siguiente validacion permitirar hacer el inner join entre usuarioRol y roles
+      // este bloque de codigo sirve para validar si algun rol  asignado al usuario es administrador
+      
       if (roleIds.length > 0) {
         const { data: roles } = await window.supabaseClient
           .from('roles')
