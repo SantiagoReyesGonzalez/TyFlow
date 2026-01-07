@@ -57,10 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (e) {
             console.error('showUserHeader error', e);
         }
+        setAdminVisibility();
     }
 
-    // inicializar header
-    showUserHeader();
 
     // Mostrar/ocultar elementos para administradores
     function setAdminVisibility() {
