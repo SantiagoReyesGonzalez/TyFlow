@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setAdminVisibility();
     }
 
+    // inicializar header
+    showUserHeader();
 
     // Mostrar/ocultar elementos para administradores
     function setAdminVisibility() {
