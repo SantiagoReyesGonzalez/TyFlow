@@ -10,16 +10,27 @@
 
 </head>
 <body>
-    <h1>Pagina Principal TYflow</h1>
+    <nav>
+        <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#" class="admin-only">Usuarios</a></li>
+        </ul>
+    </nav>
+    <h1>TYFLOW</h1>
 
-    <button id="logout">Cerrar sesión</button>
+    <div>
+        <div id="userInfo">
+            <p>
+                <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
+            </p>
 
-        <div id="userInfo" style="margin:12px 0; padding:8px; background:#eef; border-radius:6px; display:none;">
-            <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
-            <br>
-            <strong>Rol:</strong> <span id="ui-rol">-</span>
+            <p>
+                <strong>Rol:</strong> <span id="ui-rol">-</span>
+            </p>
             <p class="admin-only">Este Parrafo se muestra si es administrador</p>
         </div>
+        <button id="logout">Cerrar sesión</button>
+    </div>
 
 
 
