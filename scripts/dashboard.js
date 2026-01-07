@@ -1,87 +1,72 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Elementos de prueba removidos: `testConnBtn` y `testResult` ya no son necesarios
+  if (!window.supabaseClient) return;
 
-    async function showUserHeader() {
-        if (!window.supabaseClient) return;
-        try {
-            const { data: sessionData } = await window.supabaseClient.auth.getSession();
-            const user = sessionData?.session?.user;
-            if (!user) return;
+  // ===== Helpers UI =====
+  function setAdminVisibility() {
+    document.querySelectorAll('.admin-only').forEach(el => {
+      el.style.display = window.currentUserIsAdmin ? '' : 'none';
+    });
+  }
 
-            // obtener datos de usuario
-            const { data: usuarioRows, error: usuarioErr } = await window.supabaseClient
-                .from('usuarios')
-                .select('primerNombre,primerApellido')
-                .eq('id', user.id)
-                .maybeSingle();
+  // ===== Main =====
+  async function loadUser() {
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const user = sessionData?.session?.user;
+      if (!user) return;
 
-            if (usuarioErr) {
-                console.debug('Error fetching usuario row:', usuarioErr);
-            }
+      // ---- Datos básicos usuario ----
+      const { data: usuario } = await supabase
+        .from('usuarios')
+        .select('primerNombre, primerApellido')
+        .eq('id', user.id)
+        .maybeSingle();
 
-            // obtener rol
-            const { data: urRows, error: urErr } = await window.supabaseClient
-                .from('usuarioRol')
-                .select('rolID')
-                .eq('usuarioID', user.id);
+      document.getElementById('ui-nombre').textContent =
+        usuario?.primerNombre || user.user_metadata?.full_name || user.email;
 
-            if (urErr) console.debug('Error fetching usuarioRol:', urErr);
+      document.getElementById('ui-apellido').textContent =
+        usuario?.primerApellido || '';
 
-            let rolName = '-';
-            if (urRows && urRows.length > 0) {
-                const rolIds = urRows.map(r => r.rolID).filter(Boolean);
-                if (rolIds.length) {
-                    const { data: roles } = await window.supabaseClient
-                        .from('roles')
-                        .select('nombreRol')
-                        .in('id', rolIds)
-                        .limit(1);
-                    if (roles && roles.length) rolName = roles[0].nombreRol || '-';
-                }
-            }
+      // ---- Rol ----
+      let rolName = '-';
+      window.currentUserIsAdmin = false;
 
-            const ui = document.getElementById('userInfo');
-            const uNombre = document.getElementById('ui-nombre');
-            const uApellido = document.getElementById('ui-apellido');
-            const uRol = document.getElementById('ui-rol');
+      const { data: usuarioRol } = await supabase
+        .from('usuarioRol')
+        .select('rolID')
+        .eq('usuarioID', user.id)
+        .maybeSingle();
 
-            if (usuarioRows) {
-                uNombre.textContent = usuarioRows.primerNombre || '-';
-                uApellido.textContent = usuarioRows.primerApellido || '-';
-            } else {
-                uNombre.textContent = user.user_metadata?.full_name || user.email || '-';
-                uApellido.textContent = '';
-            }
-            uRol.textContent = rolName;
-            ui.style.display = 'block';
-        } catch (e) {
-            console.error('showUserHeader error', e);
+      if (usuarioRol?.rolID) {
+        const { data: rol } = await supabase
+          .from('roles')
+          .select('nombreRol')
+          .eq('id', usuarioRol.rolID)
+          .maybeSingle();
+
+        if (rol?.nombreRol) {
+          rolName = rol.nombreRol;
+          window.currentUserIsAdmin = rolName === 'Administrador';
         }
+      }
+
+      document.getElementById('ui-rol').textContent = rolName;
+
+      // ---- Mostrar UI ----
+      document.getElementById('userInfo').style.display = 'block';
+      setAdminVisibility();
+
+    } catch (err) {
+      console.error('Error cargando usuario:', err);
     }
+  }
 
-    // inicializar header
-    showUserHeader();
+  // ===== Logout =====
+  document.getElementById('logout').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = '../index.html';
+  });
 
-    // Mostrar/ocultar elementos para administradores
-    function setAdminVisibility() {
-        try {
-            const roleFromBody = document?.body?.dataset?.role;
-            const isAdmin = Boolean(window.currentUserIsAdmin) || roleFromBody === 'admin';
-            document.querySelectorAll('.admin-only').forEach(el => {
-                el.style.display = isAdmin ? '' : 'none';
-            });
-            // permitir refrescar manualmente desde la consola si se necesita
-            window.refreshAdminUI = setAdminVisibility;
-        } catch (e) {
-            console.debug('setAdminVisibility error', e);
-        }
-    }
-
-    // aplicar visibilidad inmediatamente y también tras cambios de auth
-    setAdminVisibility();
-    if (window.supabaseClient?.auth?.onAuthStateChange) {
-        window.supabaseClient.auth.onAuthStateChange(() => setTimeout(setAdminVisibility, 50));
-    }
-
-    // Código de prueba (`testConnBtn`) eliminado intencionalmente.
+  loadUser();
 });

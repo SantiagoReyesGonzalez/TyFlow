@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles/reset.css">
-    <link rel="stylesheet" href="../styles/variables.css">
-    <link rel="stylesheet" href="../styles/body.css">
-    <link rel="stylesheet" href="../styles/dashboard.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/variables.css">
+  <link rel="stylesheet" href="../styles/body.css">
+  <link rel="stylesheet" href="../styles/dashboard.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li class="admin-only"><a href="#" >Usuarios</a></li>
-        </ul>
-    </nav>
-    <h1>TYFLOW</h1>
 
-    <div>
-        <div id="userInfo">
-            <p>
-                <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
-            </p>
+  <nav>
+    <ul>
+      <li><a href="#">Inicio</a></li>
+      <li class="admin-only" style="display:none">
+        <a href="#">Usuarios</a>
+      </li>
+    </ul>
+  </nav>
 
-            <p>
-                <strong>Rol:</strong> <span id="ui-rol">-</span>
-            </p>
-            <p class="admin-only">Este Parrafo se muestra si es administrador</p>
-        </div>
-        <button id="logout">Cerrar sesión</button>
-    </div>
+  <h1>TYFLOW</h1>
 
+  <div id="userInfo" style="display:none">
+    <p>
+      <strong>Usuario:</strong>
+      <span id="ui-nombre">-</span>
+      <span id="ui-apellido">-</span>
+    </p>
 
+    <p>
+      <strong>Rol:</strong>
+      <span id="ui-rol">-</span>
+    </p>
 
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script src="../scripts/supabase.js"></script>
-        <script src="../scripts/protect.js"></script>
-        <script src="../scripts/dashboard.js"></script>
-        <script src="../scripts/diagnostics.js"></script>
+    <p class="admin-only" style="display:none">
+      Este Parrafo se muestra si es administrador
+    </p>
+  </div>
 
+  <button id="logout">Cerrar sesión</button>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../scripts/supabase.js"></script>
+  <script src="../scripts/dashboard.js"></script>
 </body>
 </html>
