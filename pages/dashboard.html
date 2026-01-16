@@ -9,15 +9,7 @@
     <link rel="stylesheet" href="../styles/body.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="#">Inicio</a></li>
-            <li class="admin-only"><a href="#" >Usuarios</a></li>
-        </ul>
-    </nav>
-    <h1>TYFLOW</h1>
-
-    <div>
+    <header>
         <div id="userInfo">
             <p>
                 <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
@@ -26,18 +18,33 @@
             <p>
                 <strong>Rol:</strong> <span id="ui-rol">-</span>
             </p>
-            <p class="admin-only">Este Parrafo se muestra si es administrador</p>
+            <p class="admin-only">Tu tienes el control, señor administrador</p>
         </div>
-        <button id="logout">Cerrar sesión</button>
-    </div>
+    </header>
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li class="admin-only"><a href="#" >Usuarios</a></li>
+            </ul>
+        </nav>
+        <div>
+            <button id="logout">Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <main>
+        <h1>TYFLOW</h1>
+        <section></section>
+    </main>
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script src="../scripts/supabase.js"></script>
-        <script src="../scripts/protect.js"></script>
-        <script src="../scripts/currentUser.js"></script>
-        <script src="../scripts/diagnostics.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../scripts/supabase.js"></script>
+    <script src="../scripts/protect.js"></script>
+    <script src="../scripts/currentUser.js"></script>
+    <script src="../scripts/diagnostics.js"></script>
 
 
 </body>
