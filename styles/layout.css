@@ -1,0 +1,21 @@
+body.layout{
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: 60px 1fr;
+    grid-template-areas: 
+    "menu header"
+    "menu main";
+}
+
+header.layout__header{
+    grid-area: header;
+    background-color: blue;
+}
+aside.layout__menu{
+    grid-area: menu;
+    background-color: lightseagreen;
+}
+main.layout__main{
+    grid-area: main;
+    background-color: lavenderblush;
+}

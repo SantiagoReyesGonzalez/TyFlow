@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/variables.css">
     <link rel="stylesheet" href="../styles/body.css">
+    <link rel="stylesheet" href="../styles/layout.css">
 </head>
-<body>
-    <header>
+<body class="layout">
+    <header class="layout__header">
+        <h2>Dashboard</h2>
         <div id="userInfo">
             <p>
                 <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
@@ -21,8 +23,9 @@
             <p class="admin-only">Tu tienes el control, señor administrador</p>
         </div>
     </header>
-    <aside>
+    <aside class="layout__menu">
         <nav>
+            <div>TYFLOW</div>
             <ul>
                 <li><a href="#">Inicio</a></li>
                 <li class="admin-only"><a href="#" >Usuarios</a></li>
@@ -33,8 +36,8 @@
         </div>
     </aside>
 
-    <main>
-        <h1>TYFLOW</h1>
+    <main class="layout__main">
+         
         <section></section>
     </main>
 
