@@ -22,6 +22,9 @@
   --text-secondary: #4B5563;
   --text-muted: #9CA3AF;
 
+  --text-white: #ffffff;
+ 
+
   --border-light: #E5E7EB;
   --border-dark: #D1D5DB;
 
@@ -71,10 +74,10 @@
     /* =========================
      GRADIENTES
   ========================= */
-  --primary-gradient: linear-gradient(
-      -110deg,
-      #2AC78F 0%,   /* verde original */
-      #72ccab 100%  /* verde mucho más claro para que se note el gradiente */
+   --primary-gradient: linear-gradient(
+      135deg,     /* Diagonal estándar de arriba-izq a abajo-der */
+      #2AC78F 0%, /* Tu verde principal */
+      #3EE0A1 100% /* Un verde menta más brillante */
    );
 }
 
