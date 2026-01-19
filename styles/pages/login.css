@@ -24,9 +24,10 @@ body{
 }
 
 
-h1{
+.container-login-left h1{
     padding: 10px 10px 30px 10px;
     text-align: center;
+    color: var(--primary-500);
 
 }
 label{

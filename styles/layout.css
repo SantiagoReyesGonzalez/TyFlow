@@ -31,6 +31,16 @@ aside.layout__menu nav .title__app{
 
 }
 
+aside.layout__menu nav ul{
+    margin: 10px;
+    padding: 20px 0;
+    border-top: 2px solid var(--border-dark);;
+}
+
+aside.layout__menu nav ul li{
+    line-height: 0;
+
+}
 aside.layout__menu nav ul li a{
     color: var(--text-white);
     text-decoration: none;
@@ -38,11 +48,14 @@ aside.layout__menu nav ul li a{
     display: flex;
     align-items: center;
     gap: 12px;
+    transition: var(--transition-fast);
+        border-radius: 6px;
 
 }
 
 aside.layout__menu nav ul li a:hover{
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--primary-600);
+    opacity: 0.96;
 }
 
 aside.layout__menu nav ul li a {
