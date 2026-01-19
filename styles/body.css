@@ -22,7 +22,6 @@ input {
   padding: var(--space-sm);
 }
 
-/* Ocultar elementos solo para admin cuando el body indica usuario normal */
-body[data-role="user"] .admin-only {
-  display: none !important;
+.admin-only {
+    display: none; /* Nadie lo ve, ni el Papa, hasta que JS diga lo contrario */
 }
