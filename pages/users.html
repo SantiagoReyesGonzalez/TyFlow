@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios | TyFlow</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/variables.css">
+    <link rel="stylesheet" href="../styles/body.css">
+    <link rel="stylesheet" href="../styles/layout.css">
+    <link rel="stylesheet" href="../styles/pages/users.css">
+</head>
+<body class="layout">
+    
+    <header class="layout__header topbar">
+        <div class="topbar__brand">
+            <h2>Inicio</h2>
+        </div>
+
+        <div class="topbar__actions">
+            <div id="userInfo" class="user-pill" style="display: none;">
+                <div class="user-pill__info">
+                    <span id="ui-nombre" class="user-pill__name">Cargando...</span>
+                    <span id="ui-apellido" class="user-pill__name"></span>
+                </div>
+                <span id="ui-rol" class="user-pill__role"></span>
+            </div>
+        </div>
+    </header>
+
+    <aside class="layout__sidebar sidebar">
+        <nav class="sidebar__nav">
+            <div class="sidebar__header">
+                <h1 class="sidebar__title">TYFLOW</h1>
+            </div>
+            
+            <ul class="sidebar__list">
+                <li class="sidebar__item">
+                    <a href="dashboard.html" class="sidebar__link">
+                        <i class='bx bx-home-alt-2 sidebar__icon'></i> 
+                        Inicio
+                    </a>
+                </li>
+                <li class="sidebar__item admin-only">
+                    <a href="users.html" class="sidebar__link sidebar__link--active">
+                        <i class='bx bx-user sidebar__icon'></i> 
+                        Usuarios
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar__footer">
+            <button id="logout-sidebar" class="sidebar__link sidebar__link--logout js-logout">
+                <i class='bx bx-power-off sidebar__icon'></i> 
+                Cerrar sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="layout__main">
+        <section class="content">
+            
+            <div class="page-header">
+                <h1 class="page-header__title">Registro de Usuarios</h1>
+                <button id="btn-create-user" class="btn-primary">
+                    <i class='bx bx-plus'></i>
+                    Crear nuevo usuario
+                </button>
+            </div>
+
+            <div class="filter-bar">
+                <div class="filter-bar__group">
+                    <i class='bx bx-search filter-bar__icon'></i>
+                    <input type="text" id="filter-name" class="filter-bar__input" placeholder="Buscar por nombre...">
+                </div>
+                
+                <div class="filter-bar__group">
+                    <i class='bx bx-envelope filter-bar__icon'></i>
+                    <input type="text" id="filter-email" class="filter-bar__input" placeholder="Buscar por correo...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="datatable">
+                    <thead>
+                        <tr class="datatable__header">
+                            <th>Estado</th>
+                            <th>Nombre Completo</th>
+                            <th>Numero Documento</th>
+                            <th>Correo</th>
+                            <th>Rol</th>
+                            <th>Área</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr class="datatable__row">
+                            <td>
+                                <span class="status-badge status-badge--active">Activo</span>
+                            </td>
+                            <td class="datatable__cell--bold">Juan Pérez</td>
+                            <td>juan.perez</td>
+                            <td>juan.perez@mail.com</td>
+                            <td><span class="role-tag">Operativo</span></td>
+                            <td>Reparto</td>
+                            <td>
+                                <button class="btn-icon-small">
+                                    <i class='bx bx-edit-alt'></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                </table>
+            </div>
+
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../scripts/supabase.js"></script>
+    <script src="../scripts/protect.js"></script>
+    <script src="../scripts/currentUser.js"></script>
+    <script src="../scripts/diagnostics.js"></script>
+    <script src="../scripts/page/users.js"></script>
+
+</body>
+</html>
