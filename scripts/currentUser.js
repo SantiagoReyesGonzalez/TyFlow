@@ -40,17 +40,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       document.getElementById('ui-apellido').textContent =
         usuario?.primerApellido || '';
 
-      // 3️⃣ Rol (flujo simple y claro)
+      // 3️⃣ Cálculo del Rol (Lógica pura)
       let rolName = 'Usuario';
       let isAdmin = false;
 
       const { data: usuarioRol } = await window.supabaseClient
         .from('usuarioRol')
-        .select(`
-          roles (
-            nombreRol
-          )
-        `)
+        .select(`roles (nombreRol)`)
         .eq('usuarioID', user.id)
         .maybeSingle();
 
@@ -59,7 +55,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         isAdmin = rolName === 'Administrador';
       }
 
-      // 4️⃣ Pintar UI
+      // 4️⃣ Pintar UI (Unificado para todos los casos)
+      // Ahora sí, asignamos el dataset sea admin o sea usuario normal
+      document.body.dataset.role = isAdmin ? 'admin' : 'user'; 
+      
       document.getElementById('ui-rol').textContent = rolName;
       document.getElementById('userInfo').style.display = 'block';
       setAdminVisibility(isAdmin);
