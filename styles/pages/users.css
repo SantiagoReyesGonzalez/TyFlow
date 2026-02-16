@@ -1,76 +1,80 @@
-/* modules.css (o agrégalo a tu CSS principal) */
+/* =========================================
+   ESTILOS DE PÁGINA: GESTIÓN DE USUARIOS
+   (Versión Compacta & Profesional)
+   ========================================= */
 
-/* --- BOTONES --- */
-.btn-primary {
-    background-color: var(--primary-500);
-    color: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 8px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background 0.2s;
-}
-.btn-primary:hover {
-    background-color: var(--primary-600);
-}
+/* --- 1. ENCABEZADO Y CONTROLES --- */
 
-.btn-icon-small {
-    background: transparent;
-    border: 1px solid var(--border-dark);
-    color: var(--text-secondary);
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-.btn-icon-small:hover {
-    background-color: var(--primary-100);
-    color: var(--primary-600);
-    border-color: var(--primary-500);
-}
-
-/* --- PAGE HEADER --- */
 .page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem; /* Un poco menos de margen */
+    flex-wrap: wrap; 
+    gap: 1rem;
 }
+
 .page-header__title {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-primary);
+    margin: 0;
 }
 
-/* --- FILTER BAR --- */
+/* Botón Verde Principal */
+.btn-primary {
+    background-color: var(--primary-500);
+    color: white;
+    padding: 0.6rem 1rem; /* Más compacto */
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.1s;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(42, 199, 143, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-600);
+    transform: translateY(-1px);
+}
+
+/* --- 2. BARRA DE FILTROS --- */
+
 .filter-bar {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     background: white;
-    padding: 1rem;
-    border-radius: 12px;
+    padding: 1rem; /* Padding reducido */
+    border-radius: 10px;
     box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-light);
 }
 
 .filter-bar__group {
     display: flex;
     align-items: center;
-    background-color: var(--bg-card); /* Gris suave */
+    background-color: var(--bg-card); 
     border: 1px solid var(--border-light);
     border-radius: 8px;
-    padding: 0.5rem 1rem;
-    flex: 1; /* Ocupan el mismo espacio */
+    padding: 0.5rem 0.8rem; /* Input más bajito */
+    flex: 1; 
+    transition: border-color 0.2s;
+}
+
+.filter-bar__group:focus-within {
+    border-color: var(--primary-500);
+    background-color: white;
 }
 
 .filter-bar__icon {
     color: var(--text-muted);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-right: 0.5rem;
 }
 
@@ -80,44 +84,58 @@
     width: 100%;
     outline: none;
     color: var(--text-primary);
+    font-size: 0.9rem;
 }
 
-/* --- DATA TABLE --- */
+/* --- 3. TABLA DE DATOS (COMPACTA) --- */
+
 .table-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: var(--shadow-sm);
-    overflow: hidden; /* Para las esquinas redondas */
+    width: 100%;
+    overflow-x: auto; /* Scroll horizontal si es necesario */
+    border: 1px solid var(--border-light);
 }
 
 .datatable {
     width: 100%;
     border-collapse: collapse;
+    white-space: nowrap; /* Evita saltos de línea feos */
+}
+
+/* Encabezados Compactos */
+.datatable__header th {
+    background-color: #F9FAFB;
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.75rem; /* Letra pequeña técnica */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1rem; /* Compacto verticalmente */
+    border-bottom: 1px solid var(--border-light);
     text-align: left;
 }
 
-.datatable__header th {
-    background-color: #F9FAFB; /* Gris muy clarito header */
-    color: var(--text-secondary);
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--border-light);
-}
-
+/* Filas Compactas */
 .datatable__row {
     border-bottom: 1px solid var(--border-light);
-    transition: background 0.1s;
+    transition: background-color 0.1s ease;
 }
+
+.datatable__row:last-child {
+    border-bottom: none;
+}
+
 .datatable__row:hover {
-    background-color: #F3F4F6;
+    background-color: #F8FAFC;
 }
 
 .datatable__row td {
-    padding: 1rem 1.5rem;
+    padding: 0.75rem 1rem; /* Compacto verticalmente */
     color: var(--text-secondary);
-    font-size: 0.95rem;
+    font-size: 0.9rem; /* Tamaño ideal lectura */
+    vertical-align: middle;
 }
 
 .datatable__cell--bold {
@@ -125,29 +143,97 @@
     font-weight: 600;
 }
 
-/* --- STATUS BADGES --- */
+/* --- 4. COMPONENTES INTERNOS (TAGS Y BADGES) --- */
+
+/* Badge de Estado */
 .status-badge {
-    padding: 0.25rem 0.75rem;
-    border-radius: 99px;
-    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
     font-weight: 700;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
 }
 
 .status-badge--active {
-    background-color: #DEF7EC; /* Verde muy claro */
-    color: #03543F; /* Verde oscuro texto */
+    background-color: #DCFCE7; 
+    color: #166534;            
 }
 
 .status-badge--inactive {
-    background-color: #FDE8E8; /* Rojo muy claro */
-    color: #9B1C1C; /* Rojo oscuro texto */
+    background-color: #FEE2E2; 
+    color: #991B1B;            
 }
 
+/* Wrapper para Etiquetas (Solución de alineación) */
+.tags-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Permite que bajen si hay muchas */
+    gap: 4px;       /* Espacio pequeño entre ellas */
+    align-items: center;
+    max-width: 250px; /* Limita el ancho para que no estiren la tabla */
+}
+
+/* Etiqueta individual (Rol / Área) */
 .role-tag {
-    background-color: var(--bg-card);
+    background-color: white;
     border: 1px solid var(--border-dark);
-    padding: 2px 8px;
+    color: var(--text-secondary);
+    padding: 2px 8px;   /* Padding mínimo */
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Botón de Editar (Lápiz) */
+.btn-icon-small {
+    background: white;
+    border: 1px solid var(--border-dark);
+    color: var(--text-secondary);
+    width: 28px;  /* Botón pequeño */
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+}
+
+.btn-icon-small:hover {
+    background-color: var(--primary-500);
+    color: white;
+    border-color: var(--primary-500);
+}
+
+/* --- 5. RESPONSIVE DESIGN (MÓVILES) --- */
+
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .btn-primary {
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .filter-bar {
+        flex-direction: column;
+        padding: 0.8rem;
+    }
+
+    /* En móvil reducimos aún más el padding */
+    .datatable__header th, 
+    .datatable__row td {
+        padding: 0.6rem 0.8rem;
+    }
 }

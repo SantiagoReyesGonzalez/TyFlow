@@ -9,19 +9,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     // --- FUNCIÓN PRINCIPAL: Cargar Usuarios ---
     async function loadUsers() {
         try {
-            // Mostramos un mensaje de carga mientras esperamos
+            // Mensaje de carga
             tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem;">Cargando usuarios...</td></tr>';
 
-            // 🚀 LA MAGIA: Consultamos la VISTA, no las tablas sueltas.
-            // Esto trae nombre, email, rol y área en un solo viaje.
+            // Consultamos la VISTA (que ahora agrupa roles y áreas)
             const { data: users, error } = await window.supabaseClient
                 .from('vista_usuarios_dashboard') 
                 .select('*')
-                .order('creadoEn', { ascending: false }); // Los más nuevos primero
+                .order('creadoEn', { ascending: false });
 
             if (error) throw error;
 
-            // Si todo salió bien, pintamos la tabla
+            // Pintamos la tabla
             renderTable(users);
 
         } catch (err) {
@@ -30,7 +29,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
-// --- FUNCIÓN DE RENDERIZADO (Actualizada) ---
+    // --- FUNCIÓN AUXILIAR: Crear Etiquetas (Badges) ---
+    // Convierte "Admin, User" -> <span...>Admin</span> <span...>User</span>
+    function createTags(textStr, cssClass) {
+        if (!textStr) return '<span style="opacity:0.5; font-size:0.8rem">Sin Asignar</span>';
+        
+        return textStr.split(', ').map(tag => 
+            `<span class="${cssClass}">${tag}</span>`
+        ).join(' ');
+    }
+
+    // --- FUNCIÓN DE RENDERIZADO (Pintar HTML) ---
     function renderTable(users) {
         tableBody.innerHTML = ''; 
 
@@ -40,27 +49,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         users.forEach(user => {
-            // AHORA: Usamos el campo real de la base de datos
-            // La base de datos devuelve 'ACTIVO' o 'INACTIVO'
+            // 1. Estado (Ahora viene directo de la BD)
             const isActive = user.estado === 'ACTIVO';
             
-            // Creamos el badge dependiendo del estado
             const statusBadge = isActive 
                 ? '<span class="status-badge status-badge--active">Activo</span>' 
                 : '<span class="status-badge status-badge--inactive">Inactivo</span>';
 
+            // 2. Construcción de la fila
+            // En scripts/pages/users.js - Dentro de la función renderTable
+
             const row = `
                 <tr class="datatable__row">
                     <td>${statusBadge}</td>
+                    
                     <td class="datatable__cell--bold">
                         ${user.primerNombre} ${user.primerApellido}
                     </td>
+                    
                     <td>${user.numeroDocumento || 'N/A'}</td> 
+                    
                     <td>${user.email}</td>
+                    
                     <td>
-                        <span class="role-tag">${user.nombreRol || 'Sin Asignar'}</span>
+                        <div class="tags-wrapper">
+                            ${createTags(user.nombreRol, 'role-tag')}
+                        </div>
                     </td>
-                    <td>${user.nombreArea || 'Sin Asignar'}</td>
+                    
+                    <td>
+                        <div class="tags-wrapper">
+                            ${createTags(user.nombreArea, 'role-tag')}
+                        </div>
+                    </td>
+                    
                     <td>
                         <button class="btn-icon-small" title="Editar usuario">
                             <i class='bx bx-edit-alt'></i>
@@ -68,6 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </td>
                 </tr>
             `;
+            
             tableBody.innerHTML += row;
         });
     }
@@ -75,6 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // --- INICIALIZACIÓN ---
     loadUsers();
 
-    // (Opcional) Listener para el botón de refrescar o buscar
-    // document.getElementById('filter-name').addEventListener('input', ...);
+    // Listener para filtros (Opcional por ahora)
+    // const searchInput = document.getElementById('filter-name');
+    // if(searchInput) { ... lógica de búsqueda ... }
 });
