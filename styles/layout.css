@@ -1,187 +1,201 @@
-body.layout{
+/* =========================================
+   BLOQUE 1: LAYOUT (La Grilla Principal)
+   ========================================= */
+body.layout {
     display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: 60px 1fr;
+    grid-template-columns: 260px 1fr; /* Sidebar un poco más ancho para elegancia */
+    grid-template-rows: 64px 1fr;     /* Header fijo */
     grid-template-areas: 
-    "menu header"
-    "menu main";
+        "menu header"
+        "menu main";
+    height: 100vh; /* Asegura que ocupe toda la pantalla */
+    overflow: hidden; /* Evita scroll doble */
 }
 
-/* ===========================
-   HEADER PRINCIPAL
-=========================== */
-header.layout__header {
-    grid-area: header;
+.layout__header { grid-area: header; }
+.layout__sidebar { grid-area: menu; }
+
+.layout__main {
+    grid-area: main;
+    background-color: var(--bg-card); /* Gris suave */
+    padding: 2rem;
+    overflow-y: auto; /* Scroll solo en el contenido */
+}
+
+/* =========================================
+   BLOQUE 2: TOPBAR (Header Superior)
+   ========================================= */
+.topbar {
     background-color: var(--bg-main);
-    /* Usamos un borde sutil en lugar de sombra para un look más moderno */
-    border-bottom: 1px solid var(--gray-200); 
-    z-index: 10;
-    
-    /* FLEXBOX para la estructura principal izquierda/derecha */
+    border-bottom: 1px solid var(--border-light);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
     padding: 0 1.5rem;
-    height: 64px; /* Altura fija estándar */
+    z-index: 10;
 }
 
-/* --- IZQUIERDA: Marca --- */
-.header__brand h2 {
+.topbar__brand h2 {
     color: var(--text-primary);
     font-size: 1.25rem;
-    font-weight: 700; /* Letra más gruesa como una marca */
+    font-weight: 700;
     letter-spacing: -0.5px;
 }
 
-/* --- DERECHA: Contenedor Principal --- */
-.header__right {
+.topbar__actions {
     display: flex;
     align-items: center;
-    gap: 1.5rem; /* Separación entre el perfil y el botón de logout */
+    gap: 1.5rem;
 }
 
-/* Estilos del Perfil de Usuario */
-.user-profile {
+/* =========================================
+   BLOQUE 3: USER PILL (Componente Usuario)
+   ========================================= */
+.user-pill {
     display: flex;
     align-items: center;
-    gap: 1rem; /* Separación entre el nombre y el badge del rol */
+    gap: 1rem;
 }
-
-/* El nombre y apellido */
-.user-name {
+.user-pill__info{
+    display: flex;
+    gap: 4px;
+}
+.user-pill__name {
     color: var(--text-primary);
     font-weight: 600;
     font-size: 0.9rem;
+    display: block; /* Para que nombre y apellido respeten saltos si es necesario */
 }
 
-/* EL BADGE DEL ROL (La "pastilla") */
-.role-badge {
+.user-pill__role {
     display: inline-flex;
     align-items: center;
-    padding: 0.25rem 0.75rem; /* Relleno para darle forma */
-    border-radius: 9999px; /* Bordes completamente redondos */
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.5px;
-    text-transform: capitalize; /* Primera letra mayúscula */
+    text-transform: capitalize;
 }
 
-/* --- Botón de Logout --- */
-.btn-logout {
+/* Variaciones del rol según el dataset del body (Manteniendo tu lógica inteligente) */
+body[data-role="admin"] .user-pill__role {
+    background-color: var(--primary-500); /* Ajusta a un verde claro si prefieres */
+    color: white; 
+}
+
+body[data-role="user"] .user-pill__role {
+    background-color: var(--border-dark);
+    color: var(--text-secondary);
+}
+
+/* =========================================
+   BLOQUE 4: BUTTON ICON (Botón genérico)
+   ========================================= */
+.btn-icon {
     background: none;
     border: none;
     cursor: pointer;
     color: var(--text-secondary);
     padding: 8px;
-    border-radius: 50%; /* Botón redondo */
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s, color 0.2s;
 }
 
-/* Si es Admin: Verde (usando tus variables primary) */
-body[data-role="admin"] .role-badge {
-    background-color: var(--primary-100);
-    color: var(--primary-700);
+.btn-icon:hover {
+    background-color: var(--bg-card);
+    color: var(--error-500);
 }
 
-/* Si es Usuario normal: Gris */
-body[data-role="user"] .role-badge {
-    background-color: var(--gray-100);
-    color: var(--gray-600);
-}
-
-.btn-logout:hover {
-    background-color: var(--gray-100); /* Fondo gris al pasar el mouse */
-    color: var(--danger-600); /* Icono rojo al pasar el mouse */
-}
-
-aside.layout__menu{
-    grid-area: menu;
+/* =========================================
+   BLOQUE 5: SIDEBAR (Barra Lateral)
+   ========================================= */
+.sidebar {
     background: var(--primary-gradient);
     display: flex;
     flex-direction: column;
-
     justify-content: space-between;
+    padding: 1.5rem 1rem;
+    color: white;
 }
-aside.layout__menu nav .title__app{
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--text-white);
-    opacity: 0.9;
+
+/* Elemento: Header del sidebar */
+.sidebar__header {
     text-align: center;
-    padding: 1rem 0;
-
+    margin-bottom: 2rem;
 }
 
-aside.layout__menu nav ul{
-    margin: 10px;
-    padding: 20px 0;
-    border-top: 2px solid var(--border-dark);;
+.sidebar__title {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: white;
+    opacity: 0.95;
+    letter-spacing: 1px;
 }
 
-aside.layout__menu nav ul li{
-    line-height: 0;
-
+/* Elemento: Lista de navegación */
+.sidebar__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
 }
-aside.layout__menu nav ul li a{
-    color: var(--text-white);
-    text-decoration: none;
-    padding: 1rem 1.6rem;
+
+/* Elemento: Link (Botón del menú) */
+.sidebar__link {
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: var(--transition-fast);
-    border-radius: 6px;
-
-}
-
-aside.layout__menu nav ul li a:hover{
-    background-color: var(--primary-600);
-    opacity: 0.96;
-}
-
-aside.layout__menu nav ul li a {
-    font-size: 1.25rem;
-}
-main.layout__main{
-    grid-area: main;
-    background-color: lavenderblush;
-}
-
-.layout_container-logout{
-    margin: 10px ;
-    padding: 32px 0 12px 0;
-    border-top: 2px solid var(--border-dark);
-
-    transition: var(--transition-fast);
-}
-.layout .layout__logout {
-    /* 1. Quitamos lo feo del botón por defecto */
-    background: transparent;
-    border: none;
-    cursor: pointer; /* Para que salga la manito al pasar el mouse */
-    font-family: inherit; /* Para que use la misma letra que el resto */
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
     
-    /* 2. Le ponemos los mismos estilos que a tus enlaces */
-    color: var(--text-white); /* O el color que usas en el menú */
-    font-size: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 1rem 1.6rem;
-    width: 100%; /* Para que ocupe todo el ancho */
-    transition: var(--transition-base);
-        border-radius: 8px;
-}
-.layout .layout__logout i {
-    font-size: 1.5rem; /* Tamaño del ícono */
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    background: transparent;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit; /* Para el botón de logout */
 }
 
-/* Y el efecto hover para que reaccione igual */
-.layout .layout__logout:hover {
-    background-color: var(--error-500); /* Rojo para salir */
-    opacity: 0.96;
+.sidebar__icon {
+    font-size: 1.35rem;
+}
+
+/* Estado Hover */
+.sidebar__link:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    transform: translateX(4px);
+}
+
+/* Modificador: Estado Activo (Página actual) */
+.sidebar__link--active {
+    background-color: white;
+    color: var(--primary-600);
+    font-weight: 700;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.sidebar__link--active:hover {
+    background-color: white; /* Mantener blanco en hover si está activo */
+    color: var(--primary-600);
+    transform: none;
+}
+
+/* Modificador: Logout específico del Sidebar */
+.sidebar__footer {
+    border-top: 1px solid rgba(255,255,255, 0.2);
+    padding-top: 1rem;
+    margin-top: auto; /* Empuja el footer al fondo si hay espacio */
+}
+
+.sidebar__link--logout:hover {
+    background-color: rgba(239, 68, 68, 0.979); /* Rojo suave translúcido */
+    color: white;
 }

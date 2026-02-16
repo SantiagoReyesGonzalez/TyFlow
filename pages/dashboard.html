@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard | TyFlow</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../styles/reset.css">
     <link rel="stylesheet" href="../styles/variables.css">
@@ -11,66 +11,63 @@
     <link rel="stylesheet" href="../styles/layout.css">
 </head>
 <body class="layout">
-    <header class="layout__header">
-        <div class="header__brand">
+    
+    <header class="layout__header topbar">
+        <div class="topbar__brand">
             <h2>Inicio</h2>
         </div>
 
-        <div class="header__right">
-            
-            <div id="userInfo" class="user-profile" style="display: none;">
-            <div class="user-info-text">
-                <span id="ui-nombre" class="user-name">Cargando...</span>
-                <span id="ui-apellido" class="user-name"></span>
+        <div class="topbar__actions">
+            <div id="userInfo" class="user-pill" style="display: none;">
+                <div class="user-pill__info">
+                    <span id="ui-nombre" class="user-pill__name">Cargando...</span>
+                    <span id="ui-apellido" class="user-pill__name"></span>
+                </div>
+                <span id="ui-rol" class="user-pill__role"></span>
             </div>
-            <span id="ui-rol" class="role-badge"></span>
-            </div>
-
-            <button id="logout" class="btn-logout" aria-label="Cerrar sesión" title="Cerrar sesión">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-            </button>
         </div>
     </header>
-    <aside class="layout__menu">
-        <nav>
-            <div class="title__app">TYFLOW</div>
-            <ul>
-                <li>
-                    <a href="#">
-                        <i class='bx  bx-home-alt-2'></i> 
+
+    <aside class="layout__sidebar sidebar">
+        <nav class="sidebar__nav">
+            <div class="sidebar__header">
+                <h1 class="sidebar__title">TYFLOW</h1>
+            </div>
+            
+            <ul class="sidebar__list">
+                <li class="sidebar__item">
+                    <a href="#" class="sidebar__link sidebar__link--active">
+                        <i class='bx bx-home-alt-2 sidebar__icon'></i> 
                         Inicio
                     </a>
                 </li>
-                <li class="admin-only">
-                    <a href="#" >
-                        <i class='bx  bx-user'></i> 
+                <li class="sidebar__item admin-only">
+                    <a href="#" class="sidebar__link">
+                        <i class='bx bx-user sidebar__icon'></i> 
                         Usuarios
                     </a>
-                
                 </li>
             </ul>
         </nav>
-        <div class="layout_container-logout">
-            <button id="logout" class="layout__logout">
-                <i class='bx bx-power-off'></i> 
+
+        <div class="sidebar__footer">
+            <button id="logout-sidebar" class="sidebar__link sidebar__link--logout js-logout">
+                <i class='bx bx-power-off sidebar__icon'></i> 
                 Cerrar sesión
             </button>
         </div>
     </aside>
 
     <main class="layout__main">
-         
-        <section></section>
+        <section class="content">
+            </section>
     </main>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../scripts/supabase.js"></script>
     <script src="../scripts/protect.js"></script>
     <script src="../scripts/currentUser.js"></script>
     <script src="../scripts/diagnostics.js"></script>
-
 
 </body>
 </html>
