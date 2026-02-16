@@ -7,11 +7,96 @@ body.layout{
     "menu main";
 }
 
-header.layout__header{
+/* ===========================
+   HEADER PRINCIPAL
+=========================== */
+header.layout__header {
     grid-area: header;
-    background-color: blue;
+    background-color: var(--bg-main);
+    /* Usamos un borde sutil en lugar de sombra para un look más moderno */
+    border-bottom: 1px solid var(--gray-200); 
+    z-index: 10;
+    
+    /* FLEXBOX para la estructura principal izquierda/derecha */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    padding: 0 1.5rem;
+    height: 64px; /* Altura fija estándar */
 }
 
+/* --- IZQUIERDA: Marca --- */
+.header__brand h2 {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 700; /* Letra más gruesa como una marca */
+    letter-spacing: -0.5px;
+}
+
+/* --- DERECHA: Contenedor Principal --- */
+.header__right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Separación entre el perfil y el botón de logout */
+}
+
+/* Estilos del Perfil de Usuario */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem; /* Separación entre el nombre y el badge del rol */
+}
+
+/* El nombre y apellido */
+.user-name {
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* EL BADGE DEL ROL (La "pastilla") */
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem; /* Relleno para darle forma */
+    border-radius: 9999px; /* Bordes completamente redondos */
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: capitalize; /* Primera letra mayúscula */
+}
+
+/* --- Botón de Logout --- */
+.btn-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 8px;
+    border-radius: 50%; /* Botón redondo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* Si es Admin: Verde (usando tus variables primary) */
+body[data-role="admin"] .role-badge {
+    background-color: var(--primary-100);
+    color: var(--primary-700);
+}
+
+/* Si es Usuario normal: Gris */
+body[data-role="user"] .role-badge {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+}
+
+.btn-logout:hover {
+    background-color: var(--gray-100); /* Fondo gris al pasar el mouse */
+    color: var(--danger-600); /* Icono rojo al pasar el mouse */
+}
 
 aside.layout__menu{
     grid-area: menu;

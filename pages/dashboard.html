@@ -12,16 +12,23 @@
 </head>
 <body class="layout">
     <header class="layout__header">
-        <h2>Dashboard</h2>
-        <div id="userInfo">
-            <p>
-                <strong>Usuario:</strong> <span id="ui-nombre">-</span> <span id="ui-apellido">-</span>
-            </p>
+        <div class="header__brand">
+            <h2>Inicio</h2>
+        </div>
 
-            <p>
-                <strong>Rol:</strong> <span id="ui-rol">-</span>
-            </p>
-            <p class="admin-only">Tu tienes el control, señor administrador</p>
+        <div class="header__right">
+            
+            <div id="userInfo" class="user-profile" style="display: none;">
+            <div class="user-info-text">
+                <span id="ui-nombre" class="user-name">Cargando...</span>
+                <span id="ui-apellido" class="user-name"></span>
+            </div>
+            <span id="ui-rol" class="role-badge"></span>
+            </div>
+
+            <button id="logout" class="btn-logout" aria-label="Cerrar sesión" title="Cerrar sesión">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            </button>
         </div>
     </header>
     <aside class="layout__menu">
