@@ -26,6 +26,9 @@
                 </div>
                 <span id="ui-rol" class="user-pill__role"></span>
             </div>
+            <button id="btn-open-change-pass" class="btn-secondary" style="font-size: 0.9rem;">
+                <i class='bx bx-lock-alt'></i> Cambiar Clave
+            </button>
         </div>
     </header>
 
@@ -49,9 +52,6 @@
                     </a>
                 </li>
             </ul>
-            <button id="btn-open-change-pass" class="btn-secondary" style="font-size: 0.9rem;">
-                <i class='bx bx-lock-alt'></i> Cambiar Clave
-            </button>
         </nav>
 
         <div class="sidebar__footer">
@@ -122,14 +122,14 @@
 
             <div id="modal-create-user" class="modal">
                 <div class="modal__content">
-                    
+            
                     <div class="modal__header">
                         <h2 class="modal__title">Crear nuevo usuario</h2>
                         <button id="btn-close-modal" class="modal__close">&times;</button>
                     </div>
-
+            
                     <form id="form-create-user" class="modal__form">
-                        
+            
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="primerNombre">Primer Nombre *</label>
@@ -140,7 +140,7 @@
                                 <input type="text" id="segundoNombre" name="segundoNombre" placeholder="">
                             </div>
                         </div>
-
+            
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="primerApellido">Primer Apellido *</label>
@@ -151,7 +151,7 @@
                                 <input type="text" id="segundoApellido" name="segundoApellido" placeholder="">
                             </div>
                         </div>
-
+            
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="numeroDocumento">Número de documento *</label>
@@ -162,66 +162,67 @@
                                 <input type="email" id="email" name="email" required placeholder="correo@ejemplo.com">
                             </div>
                         </div>
-
+            
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="rol">Rol *</label>
                                 <select id="rol" name="rol" required>
                                     <option value="" disabled selected>Cargando roles...</option>
-                                    </select>
+                                </select>
                             </div>
-
+            
                             <div class="form-group">
                                 <label for="area">Área *</label>
                                 <select id="area" name="area" required>
                                     <option value="" disabled selected>Cargando áreas...</option>
-                                    </select>
+                                </select>
                             </div>
                         </div>
-                        
+            
                         <input type="hidden" id="temp-password" value="123456">
-
+            
                         <div class="modal__footer">
                             <button type="button" id="btn-cancel-modal" class="btn-secondary">Cancelar</button>
                             <button type="submit" class="btn-primary">Crear Usuario</button>
                         </div>
-
+            
                     </form>
                 </div>
-                        </div>
+            </div>
 
-                        <div id="modal-change-password" class="modal">
+            <!-- Modal cambio de clave -->
+            <div id="modal-change-password" class="modal">
                 <div class="modal__content" style="max-width: 400px;">
                     <div class="modal__header">
                         <h3 class="modal__title">Cambiar mi contraseña</h3>
                         <button id="btn-close-pass-modal" class="modal__close">&times;</button>
                     </div>
 
-        <form id="form-change-password" class="modal__form">
-            <div class="form-group">
-                <label for="current-password">Contraseña Actual</label>
-                <input type="password" id="current-password" name="currentPassword" placeholder="Tu clave actual para verificar" required>
-            </div>
+                    <form id="form-change-password" class="modal__form">
+                        <div class="form-group">
+                            <label for="current-password">Contraseña Actual</label>
+                            <input type="password" id="current-password" name="currentPassword" placeholder="Tu clave actual para verificar" required>
+                        </div>
 
-            <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+                        <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
 
-            <div class="form-group">
-                <label for="new-password">Nueva Contraseña</label>
-                <input type="password" id="new-password" name="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
-            </div>
+                        <div class="form-group">
+                            <label for="new-password">Nueva Contraseña</label>
+                            <input type="password" id="new-password" name="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+                        </div>
 
-            <div class="form-group">
-                <label for="confirm-password">Confirmar Contraseña</label>
-                <input type="password" id="confirm-password" name="confirmPassword" placeholder="Repite la contraseña" required minlength="6">
-            </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirmar Contraseña</label>
+                            <input type="password" id="confirm-password" name="confirmPassword" placeholder="Repite la contraseña" required minlength="6">
+                        </div>
 
-            <p id="pass-error-msg" style="color: var(--error-500); font-size: 0.9rem; display: none; margin: 0; margin-top: 10px;"></p>
+                        <p id="pass-error-msg" style="color: var(--error-500); font-size: 0.9rem; display: none; margin: 0; margin-top: 10px;"></p>
 
-            <div class="modal__footer">
-                <button type="button" id="btn-cancel-pass" class="btn-secondary">Cancelar</button>
-                <button type="submit" class="btn-primary">Guardar Nueva Clave</button>
-            </div>
-        </form>
+                        <div class="modal__footer">
+                            <button type="button" id="btn-cancel-pass" class="btn-secondary">Cancelar</button>
+                            <button type="submit" class="btn-primary">Guardar Nueva Clave</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

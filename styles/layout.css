@@ -200,3 +200,157 @@ body[data-role="user"] .user-pill__role {
     color: white;
 }
 
+/* =========================================
+   ESTILOS PARA MODALES (Globales)
+   ========================================= */
+
+/* 1. Fondo Oscuro (Overlay) */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(4px); 
+    z-index: 2000; /* Asegura estar por encima de topbar y sidebar */
+    
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal--show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 2. La Caja Blanca (Contenido) */
+.modal__content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 95%; 
+    max-width: 450px; /* Tamaño optimizado para cambio de clave */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    max-height: 90vh; 
+    overflow-y: auto; 
+}
+
+.modal--show .modal__content {
+    transform: translateY(0);
+}
+
+/* 3. Encabezado del Modal */
+.modal__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modal__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.modal__close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+/* 4. Estilos de Formulario y Grid */
+.modal__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-group input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border-dark);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: var(--input-bg);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(42, 199, 143, 0.15);
+}
+
+/* 5. Pie de página y Botones */
+.modal__footer {
+    display: flex;
+    justify-content: flex-end; 
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.btn-secondary {
+    background-color: white;
+    border: 1px solid var(--border-dark);
+    color: var(--text-secondary);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid var(--border-light);
+}
+
+/* Botón Verde Principal */
+.btn-primary {
+    background-color: var(--primary-500);
+    color: white;
+    padding: 0.6rem 1rem; /* Más compacto */
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease, transform 0.1s;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(42, 199, 143, 0.2);
+}
