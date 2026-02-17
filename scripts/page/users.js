@@ -370,6 +370,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ==========================================
     // F. INICIALIZACIÓN
     // ==========================================
+    
+    // 1. Cargar opciones (rápido)
     loadFormOptions();
-    loadUsers();
+
+    // 2. Cargar datos pesados
+    await loadUsers(); 
+
+    // 3. ¡LISTO! Le avisamos al sistema global que quite la cortina
+    if (window.hideLoader) {
+        window.hideLoader();
+    }
 });
