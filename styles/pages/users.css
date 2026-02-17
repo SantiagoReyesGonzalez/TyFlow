@@ -375,6 +375,46 @@
     background-color: var(--bg-card);
     color: var(--text-primary);
 }
+
+/* =========================================
+   ESTILOS NUEVOS: GRID DE CHECKBOXES
+   ========================================= */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Columnas automáticas */
+    gap: 10px;
+    padding: 12px;
+    background-color: var(--input-bg, #f9fafb);
+    border: 1px solid var(--border-dark);
+    border-radius: 6px;
+    max-height: 140px; /* Altura máxima con scroll */
+    overflow-y: auto;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+    padding: 4px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.checkbox-item:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--primary-500);
+}
+
 /* --- 5. RESPONSIVE DESIGN (MÓVILES) --- */
 
 @media (max-width: 768px) {
