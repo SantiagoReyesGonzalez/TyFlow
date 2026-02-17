@@ -49,6 +49,9 @@
                     </a>
                 </li>
             </ul>
+            <button id="btn-open-change-pass" class="btn-secondary" style="font-size: 0.9rem;">
+                <i class='bx bx-lock-alt'></i> Cambiar Clave
+            </button>
         </nav>
 
         <div class="sidebar__footer">
@@ -185,6 +188,41 @@
 
                     </form>
                 </div>
+                        </div>
+
+                        <div id="modal-change-password" class="modal">
+                <div class="modal__content" style="max-width: 400px;">
+                    <div class="modal__header">
+                        <h3 class="modal__title">Cambiar mi contraseña</h3>
+                        <button id="btn-close-pass-modal" class="modal__close">&times;</button>
+                    </div>
+
+        <form id="form-change-password" class="modal__form">
+            <div class="form-group">
+                <label for="current-password">Contraseña Actual</label>
+                <input type="password" id="current-password" name="currentPassword" placeholder="Tu clave actual para verificar" required>
+            </div>
+
+            <hr style="margin: 1rem 0; border: 0; border-top: 1px solid #eee;">
+
+            <div class="form-group">
+                <label for="new-password">Nueva Contraseña</label>
+                <input type="password" id="new-password" name="newPassword" placeholder="Mínimo 6 caracteres" required minlength="6">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirmar Contraseña</label>
+                <input type="password" id="confirm-password" name="confirmPassword" placeholder="Repite la contraseña" required minlength="6">
+            </div>
+
+            <p id="pass-error-msg" style="color: var(--error-500); font-size: 0.9rem; display: none; margin: 0; margin-top: 10px;"></p>
+
+            <div class="modal__footer">
+                <button type="button" id="btn-cancel-pass" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-primary">Guardar Nueva Clave</button>
+            </div>
+        </form>
+                </div>
             </div>
         </section>
     </main>
@@ -195,6 +233,7 @@
     <script src="../scripts/currentUser.js"></script>
     <script src="../scripts/diagnostics.js"></script>
     <script src="../scripts/page/users.js"></script>
+    <script src="../scripts/profile.js"></script>
 
 </body>
 </html>
