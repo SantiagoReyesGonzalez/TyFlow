@@ -1,20 +1,27 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    // Verificamos si Supabase está listo
+    // 1. Verificamos si Supabase está listo
     if (!window.supabaseClient) {
         console.error('Supabase no inicializado');
         return;
     }
 
+    // Referencias al DOM
     const tableBody = document.getElementById('users-table-body');
     const modal = document.getElementById('modal-create-user');
     const formCreateUser = document.getElementById('form-create-user');
     const modalTitle = document.querySelector('.modal__title');
     const btnSubmitModal = formCreateUser.querySelector('button[type="submit"]');
+    
+    // Inputs del Buscador
+    const filterName = document.getElementById('filter-name');
+    const filterEmail = document.getElementById('filter-email');
 
+    // Variables Globales
     let editingUserId = null; 
+    let allUsers = []; // Aquí guardaremos la copia local de usuarios para el buscador
 
     // ==========================================
-    // NUEVA FUNCIÓN: CARGAR AREAS COMO CHECKBOXES
+    // A. FUNCIÓN: CARGAR OPCIONES (ROLES Y ÁREAS)
     // ==========================================
     async function loadFormOptions() {
         try {
@@ -48,12 +55,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ==========================================
-    // 1. GESTIÓN DEL MODAL (MODIFICADO)
+    // B. GESTIÓN DEL MODAL (ABRIR/CERRAR)
     // ==========================================
     const openModal = async (mode = 'create', userData = null) => {
         modal.classList.add('modal--show');
         
-        // Limpiamos los checkboxes primero
+        // Limpiamos los checkboxes primero (desmarcar todos)
         document.querySelectorAll('input[name="area-check"]').forEach(cb => cb.checked = false);
 
         if (mode === 'edit' && userData) {
@@ -69,11 +76,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             formCreateUser.numeroDocumento.value = userData.numeroDocumento || '';
             formCreateUser.email.value = userData.email; 
             
-            // Llenar Rol (Necesitamos saber el ID del rol, si la vista solo trae nombre, puede fallar si no coincide value)
-            // Asumimos que userData.rol_id viene en la vista o intentamos buscar por texto si es necesario.
-            // *Nota:* Si tu vista no trae 'rol_id', el select no se seleccionará solo.
-            
-            // --- LOGICA PARA MARCAR AREAS CHECKBOXES ---
+            // Seleccionar Rol (si existe el input)
+            if(formCreateUser.rol) {
+                // Nota: userData debe traer rol_id o el nombre para poder seleccionarlo. 
+                // Si la vista trae el ID en 'rol_id', úsalo. Si no, tendrás que ajustar esto.
+                // Por ahora intentamos asignar el valor si coincide.
+                // formCreateUser.rol.value = userData.rol_id; 
+            }
+
+            // --- LÓGICA PARA MARCAR ÁREAS (CHECKBOXES) ---
             try {
                 // Consultamos a la base de datos qué áreas tiene este usuario
                 const { data: relaciones } = await window.supabaseClient
@@ -95,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
         } else {
+            // MODO CREAR
             editingUserId = null;
             modalTitle.textContent = "Crear nuevo usuario";
             btnSubmitModal.textContent = "Crear Usuario";
@@ -109,6 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         editingUserId = null;
     };
 
+    // Listeners para el modal
     const btnOpen = document.getElementById('btn-create-user');
     if(btnOpen) btnOpen.addEventListener('click', () => openModal('create'));
     
@@ -123,8 +136,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // ==========================================
-    // 2. CARGAR DATOS (TABLA)
+    // C. CARGAR DATOS Y RENDERIZAR TABLA
     // ==========================================
+    
+    // Helper para etiquetas de colores
     function createTags(textStr, cssClass) {
         if (!textStr) return '<span style="opacity:0.5; font-size:0.8rem">Sin Asignar</span>';
         return textStr.split(', ').map(tag => `<span class="${cssClass}">${tag}</span>`).join('');
@@ -143,19 +158,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        renderTable(users);
+        // 1. GUARDAMOS LOS DATOS EN LA VARIABLE GLOBAL
+        allUsers = users;
+        
+        // 2. Aplicamos filtros por si hay algo escrito en los inputs
+        filterUsers(); 
     }
 
     function renderTable(users) {
         tableBody.innerHTML = '';
         if (!users || users.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem;">No hay usuarios registrados.</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 2rem;">No hay usuarios registrados (o no coinciden con la búsqueda).</td></tr>';
             return;
         }
 
         users.forEach(user => {
             const isActive = user.estado === 'ACTIVO';
             
+            // --- CONSTRUCCIÓN INTELIGENTE DEL NOMBRE ---
+            // Unimos las partes que existen y quitamos los nulos
+            const nombreCompleto = [
+                user.primerNombre, 
+                user.segundoNombre, 
+                user.primerApellido, 
+                user.segundoApellido
+            ].filter(Boolean).join(' '); 
+            // -------------------------------------------
+
             const statusBadge = isActive 
                 ? '<span class="status-badge status-badge--active">Activo</span>' 
                 : '<span class="status-badge status-badge--inactive">Inactivo</span>';
@@ -179,7 +208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             row.innerHTML = `
                 <td>${statusBadge}</td>
-                <td class="datatable__cell--bold">${user.primerNombre} ${user.primerApellido}</td>
+                <td class="datatable__cell--bold">${nombreCompleto}</td>
                 <td>${user.numeroDocumento || 'N/A'}</td> 
                 <td>${user.email}</td>
                 <td><div class="tags-wrapper">${createTags(user.nombreRol, 'role-tag')}</div></td>
@@ -194,8 +223,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </td>
             `;
 
+            // Evento Editar
             row.querySelector('.btn-edit').addEventListener('click', () => openModal('edit', user));
 
+            // Evento Acción (Borrar/Restaurar)
             const btnAction = row.querySelector('.btn-delete') || row.querySelector('.btn-restore');
             if (btnAction) {
                 btnAction.addEventListener('click', async () => {
@@ -204,17 +235,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const metodo = esBorrar ? 'DELETE' : 'PUT';
                     const bodyPayload = esBorrar ? { id: user.id } : { id: user.id, estado: 'ACTIVO' };
 
-                    if(confirm(`¿Seguro que deseas ${verbo} a ${user.primerNombre}?`)) {
+                    if(confirm(`¿Seguro que deseas ${verbo} a ${nombreCompleto}?`)) {
                         try {
                             btnAction.innerHTML = `<i class='bx bx-loader-alt bx-spin'></i>`;
                             const { data, error } = await window.supabaseClient.functions.invoke('admin-crud', {
                                 method: metodo,
                                 body: bodyPayload
                             });
+
                             if (error) throw new Error(error.message);
                             if (data && data.error) throw new Error(data.error);
+
                             alert(`Usuario ${verbo}do correctamente.`);
-                            loadUsers(); 
+                            loadUsers(); // Recargar tabla
+
                         } catch (err) {
                             alert('Error: ' + err.message);
                             btnAction.innerHTML = esBorrar ? `<i class='bx bx-trash'></i>` : `<i class='bx bx-redo'></i>`;
@@ -227,7 +261,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // ==========================================
-    // 3. SUBMIT (LÓGICA ACTUALIZADA PARA AREAS)
+    // D. LÓGICA DE BÚSQUEDA (FILTROS)
+    // ==========================================
+    function filterUsers() {
+        if (!allUsers) return;
+
+        const textName = filterName.value.toLowerCase();
+        const textEmail = filterEmail.value.toLowerCase();
+
+        const filtered = allUsers.filter(user => {
+            // Construimos el nombre completo para buscar también por segundo apellido
+            const fullName = [
+                user.primerNombre, 
+                user.segundoNombre, 
+                user.primerApellido, 
+                user.segundoApellido
+            ].filter(Boolean).join(' ').toLowerCase();
+
+            const email = user.email ? user.email.toLowerCase() : '';
+
+            // El usuario debe cumplir AMBAS condiciones (si se escribieron)
+            const matchName = fullName.includes(textName);
+            const matchEmail = email.includes(textEmail);
+
+            return matchName && matchEmail;
+        });
+
+        renderTable(filtered);
+    }
+
+    // Escuchamos el evento 'input' (se dispara al escribir)
+    if (filterName) filterName.addEventListener('input', filterUsers);
+    if (filterEmail) filterEmail.addEventListener('input', filterUsers);
+
+    // ==========================================
+    // E. SUBMIT (GUARDAR USUARIO + ÁREAS)
     // ==========================================
     formCreateUser.addEventListener('submit', async (e) => {
         e.preventDefault(); 
@@ -239,7 +307,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const formData = new FormData(formCreateUser);
             
-            // 1. Recopilar ÁREAS seleccionadas
+            // 1. Recopilar ÁREAS seleccionadas (Validación)
             const checkboxes = document.querySelectorAll('input[name="area-check"]:checked');
             const areasSeleccionadas = Array.from(checkboxes).map(cb => parseInt(cb.value));
 
@@ -257,8 +325,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 segundoApellido: formData.get('segundoApellido'),
                 numeroDocumento: formData.get('numeroDocumento'),
                 rolID: formData.get('rol')
-                // NOTA: No mandamos 'areaID' aquí porque la function podría esperar uno solo.
-                // Manejaremos las áreas por separado abajo.
             };
 
             const method = editingUserId ? 'PUT' : 'POST';
@@ -271,9 +337,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (error) throw new Error(error.message || 'Error de conexión');
             if (data && data.error) throw new Error(data.error);
 
-            // 3. GESTIONAR ÁREAS (Estrategia Frontend: Wipe & Write)
-            // Obtenemos el ID del usuario (si editamos es editingUserId, si creamos viene en data)
-            // *Asumimos que tu Edge Function devuelve el objeto user o su ID en 'data'*
+            // 3. GESTIONAR ÁREAS (Estrategia: Borrar viejas -> Insertar nuevas)
             const targetUserId = editingUserId || (data.user ? data.user.id : data.id); 
 
             if (targetUserId) {
@@ -292,7 +356,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             alert(editingUserId ? 'Usuario actualizado.' : 'Usuario creado.');
             closeModal();
-            loadUsers(); 
+            loadUsers(); // Recargar tabla actualizada
 
         } catch (error) {
             console.error(error);
@@ -303,6 +367,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
+    // ==========================================
+    // F. INICIALIZACIÓN
+    // ==========================================
     loadFormOptions();
     loadUsers();
 });
